@@ -191,8 +191,6 @@ function sameBytes(left: Uint8Array, right: Uint8Array) {
   return left.every((byte, index) => byte === right[index])
 }
 
-export const locationLayer = layer
-
 export const node = makeLocationNode({ service: Service, layer, deps: [FSUtil.node] })
 
 /**

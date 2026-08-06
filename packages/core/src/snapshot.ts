@@ -227,8 +227,6 @@ const layer = Layer.effect(
   }),
 )
 
-export const locationLayer = layer.pipe(Layer.provideMerge(Config.locationLayer))
-
 export const node = makeLocationNode({
   service: Service,
   layer,
