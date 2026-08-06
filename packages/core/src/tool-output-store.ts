@@ -2,12 +2,12 @@ export * as ToolOutputStore from "./tool-output-store"
 
 import path from "path"
 import { Context, Duration, Effect, Layer, Option, Schedule, Schema } from "effect"
+import { ascending } from "@opencode-ai/schema/identifier"
 import { Config } from "./config"
 import { FSUtil } from "./fs-util"
 import { Global } from "./global"
 import { makeGlobalNode, makeLocationNode } from "./effect/app-node"
 import { SessionSchema } from "./session/schema"
-import { Identifier } from "./util/identifier"
 import type { ToolOutput } from "@opencode-ai/llm"
 
 export const MAX_LINES = 2_000
@@ -127,7 +127,7 @@ const layer = Layer.effect(
     })
 
     const write = Effect.fn("ToolOutputStore.write")(function* (content: string) {
-      const file = path.join(directory, `tool_${Identifier.ascending()}`)
+      const file = path.join(directory, `tool_${ascending()}`)
       yield* fs.ensureDir(directory).pipe(Effect.mapError((cause) => new StorageError({ operation: "write", cause })))
       yield* fs
         .writeFileString(file, content, { flag: "wx" })
